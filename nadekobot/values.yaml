@@ -39,19 +39,19 @@ resources: {}
 
 # Additional volumes on the output Deployment definition.
 volumes:
-  - name: NadekoData
+  - name: nadeko-data
     hostPath:
       path: /path/to/your/db
-  - name: NadekoCreds
+  - name: nadeko-creds
     hostPath:
       path: /path/to/your/creds
 
 # Additional volumeMounts on the output Deployment definition.
 volumeMounts:
-  - name: NadekoData
+  - name: nadeko-data
     mountPath: "/nadekobot/output/creds.yml"
     readOnly: false
-  - name: NadekoCreds
+  - name: nadeko-creds
     mountPath: "/nadekobot/output/data"
     readOnly: false
 
