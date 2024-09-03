@@ -14,6 +14,6 @@ entries:
     name: common
     type: library
     urls:
-    - https://ryuunosukeds3.github.io/helm-charts/common-0.1.0.tgz
+    - https://ryuunosukeds3.github.io/helm-charts/charts/common-0.1.0.tgz
     version: 0.1.0
 generated: "2024-09-03T13:25:18.455429431-03:00"
