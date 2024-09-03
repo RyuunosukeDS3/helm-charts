@@ -10,7 +10,7 @@ entries:
       truecharts.org/train: stable
     apiVersion: v2
     appVersion: 4.0.5
-    created: "2024-09-03T15:14:57.679097349-03:00"
+    created: "2024-09-03T15:38:42.084476471-03:00"
     dependencies:
     - name: common
       repository: oci://tccr.io/truecharts
@@ -35,6 +35,6 @@ entries:
     - https://github.com/truecharts/charts/tree/master/charts/stable/transmission
     type: application
     urls:
-    - https://your-username.github.io/helm-charts/transmission-22.1.4.tgz
+    - https://ryuunosukeds3.github.io/helm-charts/transmission-22.1.4.tgz
     version: 22.1.4
-generated: "2024-09-03T15:14:57.672844368-03:00"
+generated: "2024-09-03T15:38:42.077952223-03:00"
