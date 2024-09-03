@@ -1,0 +1,37 @@
+apiVersion: v1
+entries:
+  common:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2024-09-03T14:54:10.392502561-03:00"
+    description: A Library Helm Chart for grouping base logic charts.
+    digest: d56a218f3f24e0cb923d71785e2ef193b9e8b09fc09c50626ba0bf0d66dff416
+    home: https://github.com/ryuunosukeds3/helm-charts/tree/main/charts/common
+    maintainers:
+    - email: camelimsaturado@outlook.com
+      name: RyuunosukeDS3
+      url: https://github.com/ryuunosukeds3
+    name: common
+    type: library
+    urls:
+    - https://your-username.github.io/helm-charts/common-0.1.0.tgz
+    version: 0.1.0
+  transmission:
+  - apiVersion: v2
+    created: "2024-09-03T14:54:10.392931749-03:00"
+    dependencies:
+    - name: common
+      repository: https://ryuunosukeds3.github.io/helm-charts
+      version: 1.0.0
+    description: Transmission bittorrent client Helm Chart
+    digest: dbcfec16dbddcaccb6c692c276a234c3b5730dd927b6ff0c60c43f44b314c681
+    maintainers:
+    - email: camelimsaturado@outlook.com
+      name: RyuunosukeDS3
+      url: https://github.com/ryuunosukeds3
+    name: transmission
+    type: application
+    urls:
+    - https://your-username.github.io/helm-charts/transmission-1.0.0.tgz
+    version: 1.0.0
+generated: "2024-09-03T14:54:10.392287296-03:00"
