@@ -1,40 +1,37 @@
 apiVersion: v1
 entries:
+  common:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2024-09-03T20:38:22.076671817-03:00"
+    description: A Library Helm Chart for grouping base logic charts.
+    digest: d56a218f3f24e0cb923d71785e2ef193b9e8b09fc09c50626ba0bf0d66dff416
+    home: https://github.com/ryuunosukeds3/helm-charts/tree/main/charts/common
+    maintainers:
+    - email: camelimsaturado@outlook.com
+      name: RyuunosukeDS3
+      url: https://github.com/ryuunosukeds3
+    name: common
+    type: library
+    urls:
+    - https://ryuunosukeds3.github.io/helm-charts/common-0.1.0.tgz
+    version: 0.1.0
   transmission:
-  - annotations:
-      max_scale_version: 24.04.1
-      min_scale_version: 24.04.0
-      truecharts.org/category: download-tools
-      truecharts.org/max_helm_version: "3.15"
-      truecharts.org/min_helm_version: "3.11"
-      truecharts.org/train: stable
-    apiVersion: v2
-    appVersion: 4.0.5
-    created: "2024-09-03T15:38:42.084476471-03:00"
+  - apiVersion: v2
+    created: "2024-09-03T20:38:22.077312322-03:00"
     dependencies:
     - name: common
-      repository: oci://tccr.io/truecharts
-      version: 24.1.14
-    description: fast, easy, and free BitTorrent client.
-    digest: 304ca235398d20880c931d491c45994924a315ad7fd10e1865eb661b5dcf8971
-    home: https://truecharts.org/charts/stable/transmission
-    icon: https://upload.wikimedia.org/wikipedia/commons/6/6d/Transmission_icon.png
-    keywords:
-    - transmission
-    - torrent
-    - usenet
-    kubeVersion: '>=1.23.0-0'
+      repository: https://ryuunosukeds3.github.io/helm-charts
+      version: 1.0.0
+    description: Transmission bittorrent client Helm Chart
+    digest: dbcfec16dbddcaccb6c692c276a234c3b5730dd927b6ff0c60c43f44b314c681
     maintainers:
-    - email: info@truecharts.org
-      name: TrueCharts
-      url: https://truecharts.org
+    - email: camelimsaturado@outlook.com
+      name: RyuunosukeDS3
+      url: https://github.com/ryuunosukeds3
     name: transmission
-    sources:
-    - https://ghcr.io/onedr0p/transmission
-    - https://github.com/transmission/transmission
-    - https://github.com/truecharts/charts/tree/master/charts/stable/transmission
     type: application
     urls:
-    - https://ryuunosukeds3.github.io/helm-charts/transmission-22.1.4.tgz
-    version: 22.1.4
-generated: "2024-09-03T15:38:42.077952223-03:00"
+    - https://ryuunosukeds3.github.io/helm-charts/transmission-1.0.0.tgz
+    version: 1.0.0
+generated: "2024-09-03T20:38:22.076391059-03:00"
