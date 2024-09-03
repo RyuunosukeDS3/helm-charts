@@ -18,7 +18,7 @@ entries:
     description: fast, easy, and free BitTorrent client.
     digest: 304ca235398d20880c931d491c45994924a315ad7fd10e1865eb661b5dcf8971
     home: https://truecharts.org/charts/stable/transmission
-    icon: https://truecharts.org/img/hotlink-ok/chart-icons/transmission.webp
+    icon: https://upload.wikimedia.org/wikipedia/commons/6/6d/Transmission_icon.png
     keywords:
     - transmission
     - torrent
