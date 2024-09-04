@@ -16,14 +16,15 @@ containerPorts:
 service:
   type: ClusterIP
   nodePorts: {}
-#   http: 9091
-#   peer: 51413
+  # Uncomment to use nodePorts for specific ports
+  # http: 9091
+  # peer: 51413
   ports:
     http: 9091
     peer: 51413
 
 livenessProbe:
-  enabled: false
+  enabled: true
   path: /transmission/web/
   port: 9091
   initialDelaySeconds: 180
@@ -33,7 +34,7 @@ livenessProbe:
   successThreshold: 1
 
 readinessProbe:
-  enabled: false
+  enabled: true
   path: /transmission/web/
   port: 9091
   initialDelaySeconds: 180
@@ -44,3 +45,20 @@ readinessProbe:
 
 persistence:
   enabled: false
+
+config:
+  useSecret: true
+  
+  # Configuration settings, used if useSecret is false
+  # settings: 
+  #   download-dir: "/downloads/complete"
+  #   incomplete-dir: "/downloads/inclopete"
+  
+  # Base64-encoded JSON settings for use with the Secret (if useSecret is true)
+  secretSettings: eyJkb3dubG9hZC1kaXIiOiIvZG93bG9hZHMvY29tcGxldGUiLCJpbmNvbXBsZXRlLWRpciI6Ii9kb3dubG9hZHMvaW5jbG9wZXRlIn0=
+
+env:
+  # Example environment variables
+  # Uncomment and set environment variables as needed
+  # PUID: 1000
+  # PGID: 1000

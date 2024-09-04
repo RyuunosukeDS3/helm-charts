@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: update-settings-script
+data:
+  update_settings.py: |
+    import json
+    import os
+
+    # Files
+    read_only_file = "read_only_settings.json"
+    settings_file = "settings.json"
+
+    # Load JSON files
+    with open(read_only_file, "r") as ro_file:
+        read_only_settings = json.load(ro_file)
+
+    with open(settings_file, "r") as s_file:
+        settings = json.load(s_file)
+
+
+    # Recursive function to update nested values
+    def update_nested_values(read_only, settings):
+        for key, value in read_only.items():
+            if isinstance(value, dict) and key in settings:
+                update_nested_values(
+                    value, settings[key]
+                )  # Recursive call for nested dictionaries
+            else:
+                settings[key] = value  # Replace value if key exists
+
+    # Update settings with values from read-only settings
+    update_nested_values(read_only_settings, settings)
+
+    # Save the updated settings back to the settings.json file
+    with open(settings_file, "w") as s_file:
+        json.dump(settings, s_file, indent=4)
+
+    print(f"Settings updated in {settings_file}.")
