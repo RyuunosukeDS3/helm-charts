@@ -47,7 +47,7 @@ persistence:
   enabled: false
 
 config:
-  useSecret: false
+  useSecret: true
   
   # Configuration settings, used if useSecret is false
   # settings: 
@@ -55,7 +55,7 @@ config:
   #   incomplete-dir: "/downloads/inclopete"
   
   # Base64-encoded JSON settings for use with the Secret (if useSecret is true)
-  # secretSettings:
+  secretSettings: asdf
 
 env:
   # Example environment variables

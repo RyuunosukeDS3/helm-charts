@@ -12,7 +12,6 @@ spec:
     metadata:
       labels: {{- include "common.labels.standard" . | nindent 8 }}
     spec:
-      {{- if or (and (.Values.config.useSecret) .Values.config.secretSettings) (and (not (.Values.config.useSecret)) .Values.config.settings) }}
       initContainers:
         - name: update-settings
           image: python:3.9
@@ -25,7 +24,6 @@ spec:
             - name: read-only-settings
               mountPath: /config/read_only_settings.json
               subPath: read_only_settings.json
-      {{- end }}
       containers:
         - name: transmission
           image: {{ .Values.image }}
@@ -34,7 +32,7 @@ spec:
               mountPath: /downloads
             - name: config-volume
               mountPath: /config
-          env: 
+          env:
             {{- range $key, $value := .Values.env }}
             - name: {{ $key | quote }}
               value: {{ $value | quote }}
@@ -51,11 +49,11 @@ spec:
             name: update-settings-script
         - name: config-volume
           emptyDir: {}  # Writable volume for settings.json
-        {{- if and (.Values.config.useSecret) .Values.config.secretSettings }}
+        {{- if and .Values.config.useSecret .Values.config.secretSettings }}
         - name: read-only-settings
           secret:
             secretName: read-only-settings-secret
-        {{- else if and (not (.Values.config.useSecret)) .Values.config.settings }}
+        {{- else if and (not .Values.config.useSecret) .Values.config.settings }}
         - name: read-only-settings
           configMap:
             name: "{{ .Release.Name }}-conf"
