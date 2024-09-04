@@ -43,12 +43,14 @@ spec:
               protocol: TCP
       volumes:
         - name: transmission-downloads
-          emptyDir: {}
+          persistentVolumeClaim:
+            claimName: transmission-downloads-pvc
+        - name: config-volume
+          persistentVolumeClaim:
+            claimName: transmission-config-pvc
         - name: script
           configMap:
             name: update-settings-script
-        - name: config-volume
-          emptyDir: {}  # Writable volume for settings.json
         {{- if and .Values.config.useSecret .Values.config.secretSettings }}
         - name: read-only-settings
           secret:

@@ -46,6 +46,20 @@ readinessProbe:
 persistence:
   enabled: false
 
+  # Example configuration for downloads PVC
+  # downloads:
+  #   size: 10Gi
+  #   storageClass: "your-pv-storage-class"
+  #   accessModes:
+  #     - ReadWriteOnce
+
+  # Example configuration for config PVC
+  # config:
+  #   size: 5Gi
+  #   storageClass: "your-pv-storage-class"
+  #   accessModes:
+  #     - ReadWriteOnce
+
 config:
   useSecret: true
   
