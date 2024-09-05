@@ -15,10 +15,23 @@ spec:
       volumes:
         - name: env-var-volume
           emptyDir: {}
-        {{- if not .Values.persistence.config }}
-          - name: config-volume
-            emptyDir: {}
-        {{ end }}
+        - name: read-only-settings
+          configMap:
+            name: "{{ .Release.Name }}-conf"
+        {{- if .Values.persistence.downloads }}
+        - name: transmission-downloads
+          persistentVolumeClaim:
+            claimName: {{ .Release.Name }}-downloads-pvc
+        {{- end }}
+        {{- if .Values.persistence.config }}
+        - name: config-volume
+          persistentVolumeClaim:
+            claimName: {{ .Release.Name }}-config-pvc
+        {{ else }}
+        - name: config-volume
+          emptyDir: {}
+        {{- end }}
+
       initContainers:
         - name: update-settings
           image: python:3.9
@@ -71,22 +84,3 @@ spec:
             - name: http
               containerPort: {{ .Values.containerPorts.http }}
               protocol: TCP
-      volumes:
-        - name: read-only-settings
-          configMap:
-            name: "{{ .Release.Name }}-conf"
-        {{- if .Values.persistence.downloads }}
-        - name: transmission-downloads
-          persistentVolumeClaim:
-            claimName: {{ .Release.Name }}-downloads-pvc
-        {{- end }}
-        {{- if .Values.persistence.config }}
-        - name: config-volume
-          persistentVolumeClaim:
-            claimName: {{ .Release.Name }}-config-pvc
-        {{ else }}
-        - name: config-volume
-          emptyDir: {}
-        {{- end }}
-        - name: env-var-volume
-          emptyDir: {}
