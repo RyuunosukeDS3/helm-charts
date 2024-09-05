@@ -31,6 +31,12 @@ spec:
         - name: config-volume
           emptyDir: {}
         {{- end }}
+        - name: script-volume
+          configMap:
+            name: update-settings-script
+            items:
+              - key: update_settings.py
+                path: update_settings.py
 
       initContainers:
         - name: update-settings
@@ -50,6 +56,9 @@ spec:
                   key: PASS
             {{- end }}
           volumeMounts:
+            - name: script-volume
+              mountPath: /scripts
+              subPath: update_settings.py
             - name: read-only-settings
               mountPath: /config/read_only_settings.json
               subPath: read_only_settings.json
