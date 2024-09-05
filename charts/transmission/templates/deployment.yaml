@@ -12,6 +12,13 @@ spec:
     metadata:
       labels: {{- include "common.labels.standard" . | nindent 8 }}
     spec:
+      volumes:
+        - name: env-var-volume
+          emptyDir: {}
+        {{- if not .Values.persistence.config }}
+          - name: config-volume
+            emptyDir: {}
+        {{ else }}
       initContainers:
         - name: update-settings
           image: python:3.9
@@ -38,13 +45,8 @@ spec:
             - name: read-only-settings
               mountPath: /config/read_only_settings.json
               subPath: read_only_settings.json
-            {{- if .Values.persistence.config }}
             - name: config-volume
               mountPath: /config
-            {{ else }}
-            - name: config-json-volume
-              mountPath: /config/settings.json
-            {{- end }}
             - name: env-var-volume
               mountPath: /env-vars
       containers:
@@ -55,13 +57,8 @@ spec:
             - name: transmission-downloads
               mountPath: /downloads
             {{- end }}
-            {{- if .Values.persistence.config }}
             - name: config-volume
               mountPath: /config
-            {{ else }}
-            - name: config-json-volume
-              mountPath: /config/settings.json
-            {{- end }}
             - name: env-var-volume
               mountPath: /env-vars
           env:
