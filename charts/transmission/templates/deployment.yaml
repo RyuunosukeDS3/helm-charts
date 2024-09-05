@@ -38,8 +38,13 @@ spec:
             - name: read-only-settings
               mountPath: /config/read_only_settings.json
               subPath: read_only_settings.json
+            {{- if .Values.persistence.config }}
             - name: config-volume
               mountPath: /config
+            {{ else }}
+            - name: config-json-volume
+              mountPath: /config/settings.json
+            {{- end }}
             - name: env-var-volume
               mountPath: /env-vars
       containers:
