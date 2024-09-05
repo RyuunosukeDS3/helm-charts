@@ -7,6 +7,18 @@ data:
     import json
     import os
 
+    # Get the AUTH_USER and AUTH_PASS from environment variables
+    auth_user = os.getenv("AUTH_USER", "").strip()  # Strip removes any newline characters
+    auth_pass = os.getenv("AUTH_PASS", "").strip()
+
+    # Write the AUTH_USER to /env-vars/USER
+    with open("/env-vars/USER", "w") as user_file:
+        user_file.write(auth_user)
+
+    # Write the AUTH_PASS to /env-vars/PASS
+    with open("/env-vars/PASS", "w") as pass_file:
+        pass_file.write(auth_pass)
+
     # Files
     read_only_file = "config/read_only_settings.json"
     settings_file = "config/settings.json"

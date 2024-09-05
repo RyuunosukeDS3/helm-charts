@@ -23,9 +23,6 @@ spec:
         - name: update-settings
           image: python:3.9
           command: ["python", "/scripts/update_settings.py"]
-          args:
-            - echo -n "$(echo "$AUTH_USER" | sed 's/[\r\n]*$//')" > /env-vars/USER
-            - echo -n "$(echo "$AUTH_PASS" | sed 's/[\r\n]*$//')" > /env-vars/PASS
           env:
             {{- if .Values.auth.enabled }}
             - name: AUTH_USER
