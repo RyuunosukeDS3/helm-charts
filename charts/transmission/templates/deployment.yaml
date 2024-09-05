@@ -18,7 +18,7 @@ spec:
         {{- if not .Values.persistence.config }}
           - name: config-volume
             emptyDir: {}
-        {{ else }}
+        {{ end }}
       initContainers:
         - name: update-settings
           image: python:3.9
