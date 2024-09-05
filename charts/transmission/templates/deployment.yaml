@@ -33,6 +33,18 @@ spec:
             - name: config-volume
               mountPath: /config
           env:
+            {{- if .Values.auth.enabled }}
+            - name: AUTH_USER
+              valueFrom:
+                secretKeyRef:
+                  name: {{ if .Values.auth.useExistingSecret }}{{ .Values.auth.existingSecretName }}{{ else }}auth-secret{{ end }}
+                  key: USER
+            - name: AUTH_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: {{ if .Values.auth.useExistingSecret }}{{ .Values.auth.existingSecretName }}{{ else }}auth-secret{{ end }}
+                  key: PASS
+            {{- end }}
             {{- range $key, $value := .Values.env }}
             - name: {{ $key | quote }}
               value: {{ $value | quote }}
@@ -51,12 +63,6 @@ spec:
         - name: script
           configMap:
             name: update-settings-script
-        {{- if and .Values.config.secret .Values.config.settings }}
-        - name: read-only-settings
-          secret:
-            secretName: read-only-settings-secret
-        {{- else if and (not .Values.config.secret) .Values.config.settings }}
         - name: read-only-settings
           configMap:
             name: "{{ .Release.Name }}-conf"
-        {{- end }}

@@ -61,7 +61,7 @@ persistence:
   #     - ReadWriteOnce
 
 config:
-  secret: false
+  secret: true
   # Configuration settings, used if secret is false
   settings: {}
   #   {
@@ -76,6 +76,8 @@ env:
   # PGID: 1000
 
 auth:
-  enabled: false
-  # user: username
-  # password: secret-pass
+  enabled: true
+  useExistingSecret: false  # Set to true to use an existing secret
+  # existingSecretName: "existing-auth-secret"
+  user: username
+  password: secret-pass
