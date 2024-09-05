@@ -61,18 +61,21 @@ persistence:
   #     - ReadWriteOnce
 
 config:
-  useSecret: true
-  
-  # Configuration settings, used if useSecret is false
-  # settings: 
-  #   download-dir: "/downloads/complete"
-  #   incomplete-dir: "/downloads/inclopete"
-  
-  # Base64-encoded JSON settings for use with the Secret (if useSecret is true)
-  secretSettings: asdf
+  secret: false
+  # Configuration settings, used if secret is false
+  settings: {}
+  #   {
+  #     "download-dir": "/downloads/complete"
+  #     "incomplete-dir": "/downloads/incomplete"
+  #   }
 
 env:
   # Example environment variables
   # Uncomment and set environment variables as needed
   # PUID: 1000
   # PGID: 1000
+
+auth:
+  enabled: false
+  # user: username
+  # password: secret-pass

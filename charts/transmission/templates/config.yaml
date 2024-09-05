@@ -1,4 +1,4 @@
-{{- if and (not .Values.config.useSecret) .Values.config.settings }}
+{{- if and (not .Values.config.secret) .Values.config.settings }}
 apiVersion: v1
 kind: ConfigMap
 metadata:

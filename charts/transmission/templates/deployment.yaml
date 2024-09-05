@@ -51,11 +51,11 @@ spec:
         - name: script
           configMap:
             name: update-settings-script
-        {{- if and .Values.config.useSecret .Values.config.secretSettings }}
+        {{- if and .Values.config.secret .Values.config.settings }}
         - name: read-only-settings
           secret:
             secretName: read-only-settings-secret
-        {{- else if and (not .Values.config.useSecret) .Values.config.settings }}
+        {{- else if and (not .Values.config.secret) .Values.config.settings }}
         - name: read-only-settings
           configMap:
             name: "{{ .Release.Name }}-conf"
