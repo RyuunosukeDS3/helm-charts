@@ -19,11 +19,13 @@ spec:
           volumeMounts:
             - name: script
               mountPath: /scripts
-            - name: config-volume
-              mountPath: /config
             - name: read-only-settings
               mountPath: /config/read_only_settings.json
               subPath: read_only_settings.json
+            {{- if .Values.persistence.config }}
+            - name: config-volume
+              mountPath: /config
+            {{- end }}
       containers:
         - name: transmission
           image: {{ .Values.image }}
@@ -58,6 +60,12 @@ spec:
               containerPort: {{ .Values.containerPorts.http }}
               protocol: TCP
       volumes:
+        - name: script
+          configMap:
+            name: update-settings-script
+        - name: read-only-settings
+          configMap:
+            name: "{{ .Release.Name }}-conf"
         {{- if .Values.persistence.downloads }}
         - name: transmission-downloads
           persistentVolumeClaim:
@@ -67,10 +75,4 @@ spec:
         - name: config-volume
           persistentVolumeClaim:
             claimName: {{ .Release.Name }}-config-pvc
-        - name: script
-          configMap:
-            name: update-settings-script
-        - name: read-only-settings
-          configMap:
-            name: "{{ .Release.Name }}-conf"
         {{- end }}
