@@ -28,10 +28,14 @@ spec:
         - name: transmission
           image: {{ .Values.image }}
           volumeMounts:
+            {{- if .Values.persistence.downloads }}
             - name: transmission-downloads
               mountPath: /downloads
+            {{- end }}
+            {{- if .Values.persistence.config }}
             - name: config-volume
               mountPath: /config
+            {{- end }}
           env:
             {{- if .Values.auth.enabled }}
             - name: USER
@@ -54,15 +58,19 @@ spec:
               containerPort: {{ .Values.containerPorts.http }}
               protocol: TCP
       volumes:
+        {{- if .Values.persistence.downloads }}
         - name: transmission-downloads
           persistentVolumeClaim:
-            claimName: transmission-downloads-pvc
+            claimName: {{ .Release.Name }}-downloads-pvc
+        {{- end }}
+        {{- if .Values.persistence.config }}
         - name: config-volume
           persistentVolumeClaim:
-            claimName: transmission-config-pvc
+            claimName: {{ .Release.Name }}-config-pvc
         - name: script
           configMap:
             name: update-settings-script
         - name: read-only-settings
           configMap:
             name: "{{ .Release.Name }}-conf"
+        {{- end }}

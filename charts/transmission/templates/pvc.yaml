@@ -1,4 +1,5 @@
 {{- if .Values.persistence.enabled }}
+{{- if .Values.persistence.downloads }}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -11,8 +12,9 @@ spec:
     requests:
       storage: {{ .Values.persistence.downloads.size }}
   storageClassName: {{ .Values.persistence.downloads.storageClass }}
+{{- end }}
 
----
+{{- if .Values.persistence.config }}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -25,4 +27,5 @@ spec:
     requests:
       storage: {{ .Values.persistence.config.size }}
   storageClassName: {{ .Values.persistence.config.storageClass }}
+{{- end }}
 {{- end }}
