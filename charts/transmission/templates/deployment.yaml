@@ -57,7 +57,7 @@ spec:
             {{- end }}
           volumeMounts:
             - name: script-volume
-              mountPath: /scripts
+              mountPath: /scripts/update_settings.py
               subPath: update_settings.py
             - name: read-only-settings
               mountPath: /config/read_only_settings.json
