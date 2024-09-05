@@ -32,7 +32,7 @@ spec:
                   number: {{ .Values.ingress.backend.servicePort | int }}
                   {{- end }}
     {{- end }}
-  {{- if and .Values.ingress.tls (or .Values.ingress.certManager .Values.ingress.selfSigned) }}
+  {{- if .Values.ingress.tls }}
   tls:
     - hosts:
         - {{ .Values.ingress.hostname | quote }}

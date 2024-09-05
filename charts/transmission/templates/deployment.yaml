@@ -34,12 +34,12 @@ spec:
               mountPath: /config
           env:
             {{- if .Values.auth.enabled }}
-            - name: AUTH_USER
+            - name: USER
               valueFrom:
                 secretKeyRef:
                   name: {{ if .Values.auth.useExistingSecret }}{{ .Values.auth.existingSecretName }}{{ else }}auth-secret{{ end }}
                   key: USER
-            - name: AUTH_PASS
+            - name: PASS
               valueFrom:
                 secretKeyRef:
                   name: {{ if .Values.auth.useExistingSecret }}{{ .Values.auth.existingSecretName }}{{ else }}auth-secret{{ end }}
