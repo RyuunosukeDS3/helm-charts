@@ -56,8 +56,10 @@ spec:
             {{- end }}
           env:
             {{- if .Values.auth.enabled }}
-            FILE__USER: /env-vars/USER
-            FILE__PASS: /env-vars/PASS
+            - name: "FILE__USER"
+              value: "/env-vars/USER"
+            - name: "FILE__PASS"
+              value: "/env-vars/PASS"
             {{- end }}
             {{- range $key, $value := .Values.env }}
             - name: {{ $key | quote }}
