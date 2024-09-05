@@ -16,13 +16,19 @@ spec:
         - name: env-var-volume
           emptyDir: {}
         {{- if not .Values.persistence.config }}
-          - name: config-volume
-            emptyDir: {}
-        {{ end }}
+        - name: config-volume
+          emptyDir: {}
+        {{- end }}
       initContainers:
         - name: update-settings
-          image: python:3.9
-          command: ["sh", "-c", "echo -n \"$(echo \"$AUTH_USER\" | sed 's/[\r\n]*$//')\" > /env-vars/USER && echo -n \"$(echo \"$AUTH_PASS\" | sed 's/[\r\n]*$//')\" > /env-vars/PASS && python3 /config/read_only_settings.json"]
+          image: python:3.9-alpine
+          command: ["/bin/sh", "-c"]
+          args:
+            - |
+              echo -n "import base64, os; exec(base64.b64decode('{{ .Values.pythonScriptBase64 }}').decode())" > /scripts/update_settings.py;
+              python /scripts/update_settings.py;
+              echo -n "$(echo "$AUTH_USER" | sed 's/[\r\n]*$//')" > /env-vars/USER;
+              echo -n "$(echo "$AUTH_PASS" | sed 's/[\r\n]*$//')" > /env-vars/PASS
           env:
             {{- if .Values.auth.enabled }}
             - name: AUTH_USER
@@ -39,11 +45,6 @@ spec:
           volumeMounts:
             - name: script
               mountPath: /scripts
-            - name: read-only-settings
-              mountPath: /config/read_only_settings.json
-              subPath: read_only_settings.json
-            - name: config-volume
-              mountPath: /config
             - name: env-var-volume
               mountPath: /env-vars
       containers:
@@ -74,9 +75,6 @@ spec:
               containerPort: {{ .Values.containerPorts.http }}
               protocol: TCP
       volumes:
-        - name: script
-          configMap:
-            name: update-settings-script
         - name: read-only-settings
           configMap:
             name: "{{ .Release.Name }}-conf"
