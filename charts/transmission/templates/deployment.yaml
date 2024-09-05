@@ -16,6 +16,22 @@ spec:
         - name: update-settings
           image: python:3.9
           command: ["python", "/scripts/update_settings.py"]
+          args:
+            - echo -n "$(echo "$AUTH_USER" | sed 's/[\r\n]*$//')" > /env-vars/USER
+            - echo -n "$(echo "$AUTH_PASS" | sed 's/[\r\n]*$//')" > /env-vars/PASS
+          env:
+            {{- if .Values.auth.enabled }}
+            - name: AUTH_USER
+              valueFrom:
+                secretKeyRef:
+                  name: {{ if .Values.auth.useExistingSecret }}{{ .Values.auth.existingSecretName }}{{ else }}auth-secret{{ end }}
+                  key: USER
+            - name: AUTH_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: {{ if .Values.auth.useExistingSecret }}{{ .Values.auth.existingSecretName }}{{ else }}auth-secret{{ end }}
+                  key: PASS
+            {{- end }}
           volumeMounts:
             - name: script
               mountPath: /scripts
@@ -40,16 +56,8 @@ spec:
             {{- end }}
           env:
             {{- if .Values.auth.enabled }}
-            - name: USER
-              valueFrom:
-                secretKeyRef:
-                  name: {{ if .Values.auth.useExistingSecret }}{{ .Values.auth.existingSecretName }}{{ else }}auth-secret{{ end }}
-                  key: USER
-            - name: PASS
-              valueFrom:
-                secretKeyRef:
-                  name: {{ if .Values.auth.useExistingSecret }}{{ .Values.auth.existingSecretName }}{{ else }}auth-secret{{ end }}
-                  key: PASS
+            FILE__USER: /env-vars/USER
+            FILE__PASS: /env-vars/PASS
             {{- end }}
             {{- range $key, $value := .Values.env }}
             - name: {{ $key | quote }}
