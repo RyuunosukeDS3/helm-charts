@@ -16,19 +16,16 @@ spec:
         - name: env-var-volume
           emptyDir: {}
         {{- if not .Values.persistence.config }}
-        - name: config-volume
-          emptyDir: {}
-        {{- end }}
+          - name: config-volume
+            emptyDir: {}
+        {{ end }}
       initContainers:
         - name: update-settings
-          image: python:3.9-alpine
-          command: ["/bin/sh", "-c"]
+          image: python:3.9
+          command: ["python", "/scripts/update_settings.py"]
           args:
-            - |
-              echo -n "import base64, os; exec(base64.b64decode('{{ .Values.pythonScriptBase64 }}').decode())" > /scripts/update_settings.py;
-              python /scripts/update_settings.py;
-              echo -n "$(echo "$AUTH_USER" | sed 's/[\r\n]*$//')" > /env-vars/USER;
-              echo -n "$(echo "$AUTH_PASS" | sed 's/[\r\n]*$//')" > /env-vars/PASS
+            - echo -n "$(echo "$AUTH_USER" | sed 's/[\r\n]*$//')" > /env-vars/USER
+            - echo -n "$(echo "$AUTH_PASS" | sed 's/[\r\n]*$//')" > /env-vars/PASS
           env:
             {{- if .Values.auth.enabled }}
             - name: AUTH_USER
@@ -43,8 +40,11 @@ spec:
                   key: PASS
             {{- end }}
           volumeMounts:
-            - name: script
-              mountPath: /scripts
+            - name: read-only-settings
+              mountPath: /config/read_only_settings.json
+              subPath: read_only_settings.json
+            - name: config-volume
+              mountPath: /config
             - name: env-var-volume
               mountPath: /env-vars
       containers:
@@ -87,4 +87,9 @@ spec:
         - name: config-volume
           persistentVolumeClaim:
             claimName: {{ .Release.Name }}-config-pvc
+        {{ else }}
+        - name: config-volume
+          emptyDir: {}
         {{- end }}
+        - name: env-var-volume
+          emptyDir: {}
