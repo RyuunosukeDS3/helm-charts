@@ -3,7 +3,7 @@ entries:
   common:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2024-09-05T13:17:26.113920367-03:00"
+    created: "2024-09-05T13:20:43.219677159-03:00"
     description: A Library Helm Chart for grouping base logic charts.
     digest: d56a218f3f24e0cb923d71785e2ef193b9e8b09fc09c50626ba0bf0d66dff416
     home: https://github.com/ryuunosukeds3/helm-charts/tree/main/charts/common
@@ -18,8 +18,26 @@ entries:
     version: 0.1.0
   transmission:
   - apiVersion: v2
+    appVersion: 1.4.17
+    created: "2024-09-05T13:20:43.229541287-03:00"
+    dependencies:
+    - name: common
+      repository: https://ryuunosukeds3.github.io/helm-charts
+      version: 0.1.0
+    description: Transmission bittorrent client Helm Chart
+    digest: 07cd33ea1a49a8e9e0cc6bd996cf59a1672a688568f3bbafd34b8c5d8f12e3bb
+    maintainers:
+    - email: camelimsaturado@outlook.com
+      name: RyuunosukeDS3
+      url: https://github.com/ryuunosukeds3
+    name: transmission
+    type: application
+    urls:
+    - https://ryuunosukeds3.github.io/helm-charts/transmission-1.4.17.tgz
+    version: 1.4.17
+  - apiVersion: v2
     appVersion: 1.4.16
-    created: "2024-09-05T13:17:26.12182024-03:00"
+    created: "2024-09-05T13:20:43.229056184-03:00"
     dependencies:
     - name: common
       repository: https://ryuunosukeds3.github.io/helm-charts
@@ -37,7 +55,7 @@ entries:
     version: 1.4.16
   - apiVersion: v2
     appVersion: 1.4.15
-    created: "2024-09-05T13:17:26.121441177-03:00"
+    created: "2024-09-05T13:20:43.228476614-03:00"
     dependencies:
     - name: common
       repository: https://ryuunosukeds3.github.io/helm-charts
@@ -55,7 +73,7 @@ entries:
     version: 1.4.15
   - apiVersion: v2
     appVersion: 1.4.14
-    created: "2024-09-05T13:17:26.121058888-03:00"
+    created: "2024-09-05T13:20:43.227951937-03:00"
     dependencies:
     - name: common
       repository: https://ryuunosukeds3.github.io/helm-charts
@@ -73,7 +91,7 @@ entries:
     version: 1.4.14
   - apiVersion: v2
     appVersion: 1.4.13
-    created: "2024-09-05T13:17:26.120661109-03:00"
+    created: "2024-09-05T13:20:43.227424034-03:00"
     dependencies:
     - name: common
       repository: https://ryuunosukeds3.github.io/helm-charts
@@ -91,7 +109,7 @@ entries:
     version: 1.4.13
   - apiVersion: v2
     appVersion: 1.4.12
-    created: "2024-09-05T13:17:26.120271336-03:00"
+    created: "2024-09-05T13:20:43.226907742-03:00"
     dependencies:
     - name: common
       repository: https://ryuunosukeds3.github.io/helm-charts
@@ -109,7 +127,7 @@ entries:
     version: 1.4.12
   - apiVersion: v2
     appVersion: 1.4.11
-    created: "2024-09-05T13:17:26.11988041-03:00"
+    created: "2024-09-05T13:20:43.226380791-03:00"
     dependencies:
     - name: common
       repository: https://ryuunosukeds3.github.io/helm-charts
@@ -127,7 +145,7 @@ entries:
     version: 1.4.11
   - apiVersion: v2
     appVersion: 1.4.10
-    created: "2024-09-05T13:17:26.119494684-03:00"
+    created: "2024-09-05T13:20:43.225840184-03:00"
     dependencies:
     - name: common
       repository: https://ryuunosukeds3.github.io/helm-charts
@@ -145,7 +163,7 @@ entries:
     version: 1.4.10
   - apiVersion: v2
     appVersion: 1.4.9
-    created: "2024-09-05T13:17:26.124741596-03:00"
+    created: "2024-09-05T13:20:43.232892301-03:00"
     dependencies:
     - name: common
       repository: https://ryuunosukeds3.github.io/helm-charts
@@ -163,7 +181,7 @@ entries:
     version: 1.4.9
   - apiVersion: v2
     appVersion: 1.4.8
-    created: "2024-09-05T13:17:26.124369887-03:00"
+    created: "2024-09-05T13:20:43.232510282-03:00"
     dependencies:
     - name: common
       repository: https://ryuunosukeds3.github.io/helm-charts
@@ -181,7 +199,7 @@ entries:
     version: 1.4.8
   - apiVersion: v2
     appVersion: 1.4.7
-    created: "2024-09-05T13:17:26.123997246-03:00"
+    created: "2024-09-05T13:20:43.23213712-03:00"
     dependencies:
     - name: common
       repository: https://ryuunosukeds3.github.io/helm-charts
@@ -199,7 +217,7 @@ entries:
     version: 1.4.7
   - apiVersion: v2
     appVersion: 1.4.6
-    created: "2024-09-05T13:17:26.123623673-03:00"
+    created: "2024-09-05T13:20:43.23133417-03:00"
     dependencies:
     - name: common
       repository: https://ryuunosukeds3.github.io/helm-charts
@@ -217,7 +235,7 @@ entries:
     version: 1.4.6
   - apiVersion: v2
     appVersion: 1.4.5
-    created: "2024-09-05T13:17:26.123251653-03:00"
+    created: "2024-09-05T13:20:43.230968241-03:00"
     dependencies:
     - name: common
       repository: https://ryuunosukeds3.github.io/helm-charts
@@ -235,7 +253,7 @@ entries:
     version: 1.4.5
   - apiVersion: v2
     appVersion: 1.4.4
-    created: "2024-09-05T13:17:26.12289883-03:00"
+    created: "2024-09-05T13:20:43.230617491-03:00"
     dependencies:
     - name: common
       repository: https://ryuunosukeds3.github.io/helm-charts
@@ -253,7 +271,7 @@ entries:
     version: 1.4.4
   - apiVersion: v2
     appVersion: 1.4.3
-    created: "2024-09-05T13:17:26.122536247-03:00"
+    created: "2024-09-05T13:20:43.230254498-03:00"
     dependencies:
     - name: common
       repository: https://ryuunosukeds3.github.io/helm-charts
@@ -271,7 +289,7 @@ entries:
     version: 1.4.3
   - apiVersion: v2
     appVersion: 1.4.2
-    created: "2024-09-05T13:17:26.122175348-03:00"
+    created: "2024-09-05T13:20:43.229902797-03:00"
     dependencies:
     - name: common
       repository: https://ryuunosukeds3.github.io/helm-charts
@@ -289,7 +307,7 @@ entries:
     version: 1.4.2
   - apiVersion: v2
     appVersion: 1.4.1
-    created: "2024-09-05T13:17:26.119085865-03:00"
+    created: "2024-09-05T13:20:43.225305027-03:00"
     dependencies:
     - name: common
       repository: https://ryuunosukeds3.github.io/helm-charts
@@ -307,7 +325,7 @@ entries:
     version: 1.4.1
   - apiVersion: v2
     appVersion: 1.4.0
-    created: "2024-09-05T13:17:26.118702965-03:00"
+    created: "2024-09-05T13:20:43.224762275-03:00"
     dependencies:
     - name: common
       repository: https://ryuunosukeds3.github.io/helm-charts
@@ -325,7 +343,7 @@ entries:
     version: 1.4.0
   - apiVersion: v2
     appVersion: 1.3.0
-    created: "2024-09-05T13:17:26.118303754-03:00"
+    created: "2024-09-05T13:20:43.22422258-03:00"
     dependencies:
     - name: common
       repository: https://ryuunosukeds3.github.io/helm-charts
@@ -343,7 +361,7 @@ entries:
     version: 1.3.0
   - apiVersion: v2
     appVersion: 1.2.4
-    created: "2024-09-05T13:17:26.117643161-03:00"
+    created: "2024-09-05T13:20:43.22368035-03:00"
     dependencies:
     - name: common
       repository: https://ryuunosukeds3.github.io/helm-charts
@@ -361,7 +379,7 @@ entries:
     version: 1.2.4
   - apiVersion: v2
     appVersion: 1.2.3
-    created: "2024-09-05T13:17:26.116992317-03:00"
+    created: "2024-09-05T13:20:43.223060584-03:00"
     dependencies:
     - name: common
       repository: https://ryuunosukeds3.github.io/helm-charts
@@ -379,7 +397,7 @@ entries:
     version: 1.2.3
   - apiVersion: v2
     appVersion: 1.2.2
-    created: "2024-09-05T13:17:26.116619225-03:00"
+    created: "2024-09-05T13:20:43.222166983-03:00"
     dependencies:
     - name: common
       repository: https://ryuunosukeds3.github.io/helm-charts
@@ -397,7 +415,7 @@ entries:
     version: 1.2.2
   - apiVersion: v2
     appVersion: 1.2.1
-    created: "2024-09-05T13:17:26.116265229-03:00"
+    created: "2024-09-05T13:20:43.221757703-03:00"
     dependencies:
     - name: common
       repository: https://ryuunosukeds3.github.io/helm-charts
@@ -415,7 +433,7 @@ entries:
     version: 1.2.1
   - apiVersion: v2
     appVersion: 1.2.0
-    created: "2024-09-05T13:17:26.115890634-03:00"
+    created: "2024-09-05T13:20:43.22140542-03:00"
     dependencies:
     - name: common
       repository: https://ryuunosukeds3.github.io/helm-charts
@@ -433,7 +451,7 @@ entries:
     version: 1.2.0
   - apiVersion: v2
     appVersion: 1.1.0
-    created: "2024-09-05T13:17:26.115525487-03:00"
+    created: "2024-09-05T13:20:43.221035214-03:00"
     dependencies:
     - name: common
       repository: https://ryuunosukeds3.github.io/helm-charts
@@ -451,7 +469,7 @@ entries:
     version: 1.1.0
   - apiVersion: v2
     appVersion: 1.0.2
-    created: "2024-09-05T13:17:26.115177563-03:00"
+    created: "2024-09-05T13:20:43.220701886-03:00"
     dependencies:
     - name: common
       repository: https://ryuunosukeds3.github.io/helm-charts
@@ -469,7 +487,7 @@ entries:
     version: 1.0.2
   - apiVersion: v2
     appVersion: 1.0.1
-    created: "2024-09-05T13:17:26.11480951-03:00"
+    created: "2024-09-05T13:20:43.220361025-03:00"
     dependencies:
     - name: common
       repository: https://ryuunosukeds3.github.io/helm-charts
@@ -487,7 +505,7 @@ entries:
     version: 1.0.1
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2024-09-05T13:17:26.114411992-03:00"
+    created: "2024-09-05T13:20:43.220031215-03:00"
     dependencies:
     - name: common
       repository: https://ryuunosukeds3.github.io/helm-charts
@@ -503,4 +521,4 @@ entries:
     urls:
     - https://ryuunosukeds3.github.io/helm-charts/transmission-1.0.0.tgz
     version: 1.0.0
-generated: "2024-09-05T13:17:26.113658545-03:00"
+generated: "2024-09-05T13:20:43.219474147-03:00"
