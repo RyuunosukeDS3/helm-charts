@@ -18,6 +18,24 @@ entries:
     version: 0.1.0
   transmission:
   - apiVersion: v2
+      appVersion: 1.5.0
+    created: "2025-01-25T16:15:44.372252692-03:00"
+    dependencies:
+    - name: common
+      repository: https://ryuunosukeds3.github.io/helm-charts
+      version: 0.1.0
+    description: Transmission bittorrent client Helm Chart
+    digest: 2e48b84b3b0942ca4a8bd0529160dacaf0c66ea061e81a6746674d2503168478
+    maintainers:
+    - email: camelimsaturado@outlook.com
+      name: RyuunosukeDS3
+      url: https://github.com/ryuunosukeds3
+    name: transmission
+    type: application
+    urls:
+    - https://ryuunosukeds3.github.io/helm-charts/transmission-1.5.0.tgz
+    version: 1.5.0
+  - apiVersion: v2
     appVersion: 1.4.17
     created: "2024-09-05T13:20:43.229541287-03:00"
     dependencies:
