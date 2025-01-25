@@ -20,13 +20,23 @@ spec:
             name: "{{ .Release.Name }}-conf"
         {{- if .Values.persistence.downloads }}
         - name: transmission-downloads
+          {{- if .Values.persistence.downloads.existingClaim }}
+          persistentVolumeClaim:
+            claimName: {{ .Values.persistence.downloads.existingClaim }}
+          {{- else }}
           persistentVolumeClaim:
             claimName: {{ .Release.Name }}-downloads-pvc
+          {{- end }}
         {{- end }}
         {{- if .Values.persistence.config }}
         - name: config-volume
+          {{- if .Values.persistence.config.existingClaim }}
+          persistentVolumeClaim:
+            claimName: {{ .Values.persistence.config.existingClaim }}
+          {{- else }}
           persistentVolumeClaim:
             claimName: {{ .Release.Name }}-config-pvc
+          {{- end }}
         {{ else }}
         - name: config-volume
           emptyDir: {}
