@@ -1,0 +1,88 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nadekobot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nadekobot
+  template:
+    metadata:
+      labels:
+        app: nadekobot
+    spec:
+      initContainers:
+        - name: init-creds
+          image: ubuntu
+          command: 
+            - "/bin/sh"
+            - "-c"
+            - apt update
+            - apt install gettext -y
+            - envsubst < /nadekobot/read_only/creds.yml > /nadekobot/config/creds.yml
+          volumeMounts:
+            - name: read-only-config
+              mountPath: /nadekobot/read_only
+            - name: config-storage
+              mountPath: /nadekobot/config
+          env:
+            {{- if .Values.secret.useExisting }}
+            {{- $secretName := .Values.secret.existingName | default .Release.Name | append "-secret" }}
+            {{- range $key, $value := .Values.secret.data }}
+            - name: {{ $key }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ $secretName }}
+                  key: {{ $key }}
+            {{- end }}
+            {{- else }}
+            {{- range $key, $value := .Values.secret.data }}
+            - name: {{ $key }}
+              valueFrom:
+                secretKeyRef:
+                  name: nadekobot-secret
+                  key: {{ $key }}
+            {{- end }}
+            {{- end }}
+      containers:
+        - name: nadekobot
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          volumeMounts:
+            - name: config-storage
+              mountPath: /nadekobot/creds.yml
+              subPath: creds.yml
+            {{- if .Values.persistence.enabled }}
+            - name: data-storage
+              mountPath: /nadekobot/data
+            {{- end }}
+          env:
+            {{- if .Values.secret.useExisting }}
+            {{- $secretName := .Values.secret.existingName | default .Release.Name | append "-secret" }}
+            {{- range $key, $value := .Values.secret.data }}
+            - name: {{ $key }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ $secretName }}
+                  key: {{ $key }}
+            {{- end }}
+            {{- else }}
+            {{- range $key, $value := .Values.secret.data }}
+            - name: {{ $key }}
+              valueFrom:
+                secretKeyRef:
+                  name: nadekobot-secret
+                  key: {{ $key }}
+            {{- end }}
+            {{- end }}
+      volumes:
+        - name: read-only-config
+          configMap:
+            name: nadekobot-read-only
+        - name: config-storage
+          emptyDir: {}
+        {{- if .Values.persistence.enabled }}
+        - name: data-storage
+          persistentVolumeClaim:
+            claimName: nadekobot-pvc
+        {{- end }}

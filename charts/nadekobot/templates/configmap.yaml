@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nadekobot-read-only
+data:
+  creds.yml: |
+    {{ .Values.config.creds | toYaml | nindent 4 }}
