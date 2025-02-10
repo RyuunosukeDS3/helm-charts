@@ -18,8 +18,8 @@ spec:
           command: 
             - "/bin/sh"
             - "-c"
-            - apt update
-            - apt install gettext -y
+            - apt update &&
+            - apt install gettext -y &&
             - envsubst < /nadekobot/read_only/creds.yml > /nadekobot/config/creds.yml
           volumeMounts:
             - name: read-only-config
