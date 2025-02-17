@@ -1,0 +1,19 @@
+# values.yaml
+
+# Image configuration
+image:
+  repository: "ryuuunosukeds3/mizika-bot"
+  tag: "latest"  # Default tag
+  pullPolicy: "IfNotPresent"
+
+# Environment variables
+env:
+  - name: EXAMPLE_ENV
+    value: "example_value"
+  - name: ANOTHER_ENV
+    value: "another_value"
+
+# If using secret envs:
+# envFrom:
+#   - secretRef:
+#       name: mizika-bot-secrets 
