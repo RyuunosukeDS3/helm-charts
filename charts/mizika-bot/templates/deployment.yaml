@@ -21,7 +21,7 @@ spec:
           env:
             {{- range .Values.env }}
             - name: {{ .name }}
-              value: {{ .value }}
+              value: {{ .value | quote }} 
             {{- end }}
           envFrom:
             - secretRef:
