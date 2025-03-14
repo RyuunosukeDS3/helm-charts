@@ -2,7 +2,7 @@ apiVersion: v2
 name: transmission
 description: Transmission bittorrent client Helm Chart
 type: application
-version: 1.5.0
+version: 1.6.0
 appVersion: "1.5.0"
 dependencies:
   - name: common
@@ -12,3 +12,9 @@ maintainers:
   - name: RyuunosukeDS3
     email: camelimsaturado@outlook.com
     url: https://github.com/ryuunosukeds3
+
+annotations:
+  # Supported kind: added, changed, deprecated, removed, fixed and security
+  artifacthub.io/changes: |
+    - kind: added
+      description: "Added support for additional volumes and volume mounts"

@@ -81,3 +81,20 @@ auth:
   # existingSecretName: "existing-auth-secret"
   user: username
   password: secret-pass
+
+# Define additional volume mounts
+extraVolumeMounts: []
+#  - mountPath: /mnt/content
+#    name: my-smb-share
+#    readOnly: false
+
+# Define additional volumes
+extraVolumes: []
+#  - name: my-smb-share
+#    csi:
+#      driver: smb.csi.k8s.io
+#      volumeAttributes:
+#        mountOptions: dir_mode=0777,file_mode=0777,cache=strict,actimeo=30,uid=1000,gid=9999
+#        secretName: smbcreds
+#        source: //172.16.0.234/myshare
+
