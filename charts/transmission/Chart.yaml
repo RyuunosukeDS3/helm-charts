@@ -2,8 +2,8 @@ apiVersion: v2
 name: transmission
 description: Transmission bittorrent client Helm Chart
 type: application
-version: 1.5.0
-appVersion: "1.5.0"
+version: 1.5.1
+appVersion: "4.0.6"
 dependencies:
   - name: common
     repository: https://ryuunosukeds3.github.io/helm-charts
@@ -12,3 +12,10 @@ maintainers:
   - name: RyuunosukeDS3
     email: camelimsaturado@outlook.com
     url: https://github.com/ryuunosukeds3
+annotations:
+  # Supported kind: added, changed, deprecated, removed, fixed and security
+  artifacthub.io/changes: |
+    - kind: changed
+      description: "Use appVersion for image"
+    - kind: changed
+      description: "Updated transmission version from 4.0.4 to 4.0.6"

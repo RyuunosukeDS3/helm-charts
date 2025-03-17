@@ -1,4 +1,10 @@
-image: "lscr.io/linuxserver/transmission:4.0.4@sha256:760b2d364dbfb6d84c9688f624dc48f98665b15e9e41be2170715afcc525e329"
+image:
+  registry: lscr.io
+  repository: linuxserver/transmission
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+
 replicaCount: 1
 
 ingress:

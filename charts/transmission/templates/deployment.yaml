@@ -78,7 +78,8 @@ spec:
               mountPath: /env-vars
       containers:
         - name: transmission
-          image: {{ .Values.image }}
+          image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ Values.image.pullPolicy }}
           volumeMounts:
             {{- if .Values.persistence.downloads }}
             - name: transmission-downloads
