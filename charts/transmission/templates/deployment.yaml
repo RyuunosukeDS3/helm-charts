@@ -47,6 +47,9 @@ spec:
             items:
               - key: update_settings.py
                 path: update_settings.py
+        {{- if .Values.extraVolumes }}
+        {{ toYaml .Values.extraVolumes | nindent 8 }}
+        {{- end }}
 
       initContainers:
         - name: update-settings
@@ -76,6 +79,9 @@ spec:
               mountPath: /config
             - name: env-var-volume
               mountPath: /env-vars
+            {{- if .Values.extraVolumeMounts }}
+            {{ toYaml .Values.extraVolumeMounts | nindent 12}}
+            {{ end }}
       containers:
         - name: transmission
           image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
@@ -89,6 +95,9 @@ spec:
               mountPath: /config
             - name: env-var-volume
               mountPath: /env-vars
+            {{- if .Values.extraVolumeMounts }}
+            {{ toYaml .Values.extraVolumeMounts | nindent 12}}
+            {{- end }}
           env:
             {{- if .Values.auth.enabled }}
             - name: "FILE__USER"
