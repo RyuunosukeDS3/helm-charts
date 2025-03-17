@@ -48,7 +48,7 @@ spec:
               - key: update_settings.py
                 path: update_settings.py
         {{- if .Values.extraVolumes }}
-{{ toYaml .Values.extraVolumes | indent 8 }}
+        {{ toYaml .Values.extraVolumes | nindent 8 }}
         {{- end }}
 
       initContainers:
@@ -80,7 +80,7 @@ spec:
             - name: env-var-volume
               mountPath: /env-vars
             {{- if .Values.extraVolumeMounts }}
-{{ toYaml .Values.extraVolumeMounts | indent 12}}
+            {{ toYaml .Values.extraVolumeMounts | nindent 12}}
             {{ end }}
       containers:
         - name: transmission
@@ -96,7 +96,7 @@ spec:
             - name: env-var-volume
               mountPath: /env-vars
             {{- if .Values.extraVolumeMounts }}
-{{ toYaml .Values.extraVolumeMounts | indent 12}}
+            {{ toYaml .Values.extraVolumeMounts | nindent 12}}
             {{- end }}
           env:
             {{- if .Values.auth.enabled }}
