@@ -1,0 +1,20 @@
+{{- range $name, $pvc := .Values.persistence }}
+{{- if and $pvc.enabled (not $pvc.existingClaim) }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "janitorr.fullname" $ }}-{{ $name }}
+  labels:
+    {{- include "janitorr.labels" $ | nindent 4 }}
+spec:
+  accessModes:
+    {{- toYaml $pvc.accessModes | nindent 4 }}
+  resources:
+    requests:
+      storage: {{ $pvc.size }}
+  {{- if $pvc.storageClassName }}
+  storageClassName: {{ $pvc.storageClassName }}
+  {{- end }}
+---
+{{- end }}
+{{- end }}

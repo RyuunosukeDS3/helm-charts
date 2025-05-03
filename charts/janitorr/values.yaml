@@ -1,0 +1,62 @@
+image:
+  repository: ghcr.io/schaka/janitorr
+  tag: native-stable
+  pullPolicy: IfNotPresent
+
+replicaCount: 1
+
+persistence:
+  config:
+    enabled: true
+    existingClaim: ""      
+    accessModes: ["ReadWriteOnce"]
+    storageClassName: ""   
+    size: 1Gi
+    mountPath: ""
+
+  logs:
+    enabled: true
+    existingClaim: ""
+    accessModes: ["ReadWriteOnce"]
+    storageClassName: ""
+    size: 1Gi
+    mountPath: ""
+
+  media:
+    enabled: true
+    existingClaim: ""
+    accessModes: ["ReadOnlyMany"]
+    storageClassName: ""
+    size: 10Gi
+    mountPath: ""
+
+
+env:
+  THC_PATH: /health
+  THC_PORT: "8081"
+
+securityContext:
+  runAsUser: 1000
+  runAsGroup: 1000
+
+healthcheck:
+  enabled: true
+  command: [ "CMD", "/workspace/health-check" ]
+  startPeriod: 30s
+  interval: 5s
+  retries: 3
+
+service:
+  type: ClusterIP
+  port: 8081
+
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+  hosts:
+    - host: janitorr.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls: []
