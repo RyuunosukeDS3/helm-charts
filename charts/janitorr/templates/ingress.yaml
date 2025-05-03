@@ -36,6 +36,6 @@ spec:
   tls:
     - hosts:
         - {{ .Values.ingress.hostname | quote }}
-      secretName: {{ printf "%s-tls" .Release.Namespace | trunc 63 | trimSuffix "-" }}
+      secretName: {{ .Values.ingress.tlsSecretName | quote }}
   {{- end }}
 {{- end }}
