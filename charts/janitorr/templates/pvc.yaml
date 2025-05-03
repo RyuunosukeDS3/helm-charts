@@ -1,9 +1,10 @@
-{{- range $name, $pvc := .Values.persistence }}
+{{- $name := .Chart.Name | default "janitorr" }}
+{{- range $key, $pvc := .Values.persistence }}
 {{- if and $pvc.enabled (not $pvc.existingClaim) }}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: {{ include "janitorr.fullname" $ }}-{{ $name }}
+  name: {{ $name }}-{{ $key | lower }}
   labels:
     {{- include "janitorr.labels" $ | nindent 4 }}
 spec:
