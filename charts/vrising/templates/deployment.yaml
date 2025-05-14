@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}
+  labels:
+    app: {{ .Chart.Name }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Chart.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Chart.Name }}
+    spec:
+      containers:
+        - name: vrising
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            {{- range .Values.env }}
+            - name: {{ .name }}
+              value: "{{ .value }}"
+            {{- end }}
+          ports:
+            {{- range .Values.service.ports }}
+            - containerPort: {{ .port }}
+              protocol: {{ .protocol | default "TCP" }}
+              name: {{ .name }}
+            {{- end }}
+          volumeMounts:
+            - name: server
+              mountPath: /mnt/vrising/server
+            - name: persistentdata
+              mountPath: /mnt/vrising/persistentdata
+            {{- with .Values.volumeMounts }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+      volumes:
+        - name: server
+          persistentVolumeClaim:
+            claimName: {{ .Release.Name }}-server
+        - name: persistentdata
+          persistentVolumeClaim:
+            claimName: {{ .Release.Name }}-persistentdata
+        {{- with .Values.volumes }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}

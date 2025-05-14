@@ -1,0 +1,6 @@
+apiVersion: v2
+name: vrising
+description: Helm chart for V Rising dedicated server (trueosiris/vrising)
+type: application
+version: 0.1.0
+appVersion: "2.1"
