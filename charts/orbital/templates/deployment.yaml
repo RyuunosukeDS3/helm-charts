@@ -36,5 +36,7 @@ spec:
                   name: {{ .Values.argo.token.existingSecretName }}
                   key: {{ .Values.argo.token.existingSecretKey | default "token" }}
 {{- else }}
-            # ARGOCD_TOKEN not set
+{{- end }}
+{{- with .Values.envs }}
+{{ toYaml . | nindent 12 }}
 {{- end }}

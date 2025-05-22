@@ -22,6 +22,10 @@ service:
   port: 8080
 
 
+# envs:
+#   - name: CUSTOM_ENV
+#     value: "hello"
+
 argo:
   url: "argocd.local:443"  
   token:
