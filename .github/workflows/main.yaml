@@ -20,10 +20,12 @@ jobs:
         with:
           node-version: 20
 
-      - name: Install global dependencies
+      - name: Install dependencies
         run: |
-          npm install -g git+ssh://git@github.com/ryuunosukeds3/git-standards.git
+          npm init -y
+          npm install git+ssh://git@github.com/ryuunosukeds3/git-standards.git
           npm install -g semantic-release semantic-release-helm3
+
 
       - name: Detect and process changed charts
         run: |
