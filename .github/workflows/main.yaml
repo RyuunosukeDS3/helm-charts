@@ -23,12 +23,14 @@ jobs:
       - name: Install semantic-release locally
         run: |
           npm init -y
-          npm install semantic-release semantic-release-helm3 @semantic-release/commit-analyzer @semantic-release/release-notes-generator @semantic-release/github
+          npm install semantic-release semantic-release-helm3 \
+            @semantic-release/commit-analyzer @semantic-release/release-notes-generator \
+            @semantic-release/github
           npm install git+ssh://git@github.com/ryuunosukeds3/git-standards.git
 
       - name: Detect and process changed charts
         env:
-          GH_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+          RELEASE_TOKEN: ${{ secrets.RELEASE_TOKEN }}
         run: |
           for chart_dir in charts/*; do
             chart=$(basename "$chart_dir")
@@ -51,11 +53,12 @@ jobs:
             echo "Processing chart: $chart"
             export CHART_PATH="charts/$chart"
 
-            # Bump version with semantic-release
+            # Bump version with semantic-release using the release token
             npx semantic-release \
               --no-ci \
               --branches main \
-              --extends ./.releaserc.js
+              --extends ./.releaserc.js \
+              --repository-url "https://x-access-token:${RELEASE_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
 
             # Read the new chart version
             new_version=$(yq '.version' "$CHART_PATH/Chart.yaml")
@@ -70,9 +73,8 @@ jobs:
 
       - name: Push tags
         env:
-          GH_TOKEN: ${{ secrets.RELEASE_TOKEN }}
-        run: |
-          git push origin --tags
+          RELEASE_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+        run: git push "https://x-access-token:${RELEASE_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" --tags
 
       - name: Upload Helm packages
         uses: actions/upload-artifact@v4
@@ -109,4 +111,4 @@ jobs:
           git commit -m "✏️ chore: Publish changed Helm charts ${{ github.sha }}" || echo "No changes to commit"
           git push origin gh-pages
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
