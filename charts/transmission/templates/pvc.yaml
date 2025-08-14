@@ -15,6 +15,7 @@ spec:
   storageClassName: {{ .Values.persistence.downloads.storageClass }}
 {{- end }}
 {{- end }}
+
 ---
 {{- if .Values.persistence.config }}
 {{- if not .Values.persistence.config.existingClaim }}
