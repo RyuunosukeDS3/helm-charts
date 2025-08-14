@@ -20,11 +20,12 @@ jobs:
         with:
           node-version: 20
 
-      - name: Install dependencies
+      - name: Install semantic-release locally
         run: |
           npm init -y
+          npm install semantic-release semantic-release-helm3 @semantic-release/commit-analyzer @semantic-release/release-notes-generator @semantic-release/github
           npm install git+ssh://git@github.com/ryuunosukeds3/git-standards.git
-          npm install -g semantic-release semantic-release-helm3
+
 
 
       - name: Detect and process changed charts
