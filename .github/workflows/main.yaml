@@ -26,9 +26,9 @@ jobs:
           npm install semantic-release semantic-release-helm3 @semantic-release/commit-analyzer @semantic-release/release-notes-generator @semantic-release/github
           npm install git+ssh://git@github.com/ryuunosukeds3/git-standards.git
 
-
-
       - name: Detect and process changed charts
+        env:
+          GH_TOKEN: ${{ secrets.RELEASE_TOKEN }}
         run: |
           for chart_dir in charts/*; do
             chart=$(basename "$chart_dir")
@@ -51,24 +51,28 @@ jobs:
             echo "Processing chart: $chart"
             export CHART_PATH="charts/$chart"
 
-            # Bump version with semantic-release (no tags, no release notes)
+            # Bump version with semantic-release
             npx semantic-release \
               --no-ci \
               --branches main \
-              --extends ./.releaserc.js \
-              --no-git-tag-version \
-              --no-release-notes
+              --extends ./.releaserc.js
 
-            # Get bumped version
+            # Read the new chart version
             new_version=$(yq '.version' "$CHART_PATH/Chart.yaml")
             echo "New version for $chart: $new_version"
 
-            # Create per-chart tag
+            # Create per-chart Git tag
             git tag "${chart}-${new_version}"
 
             # Package chart
             helm package "$CHART_PATH"
           done
+
+      - name: Push tags
+        env:
+          GH_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+        run: |
+          git push origin --tags
 
       - name: Upload Helm packages
         uses: actions/upload-artifact@v4
