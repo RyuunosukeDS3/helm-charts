@@ -20,9 +20,12 @@ jobs:
       - name: Detect changed charts
         id: set
         run: |
-          CHANGED=$(git diff --name-only ${{ github.sha }}^ ${{ github.sha }} | grep '^charts/' | cut -d/ -f2 | sort -u)
-          echo "changed_charts=$CHANGED" >> "$GITHUB_OUTPUT"
+            # Get changed chart folders
+            CHANGED=$(git diff --name-only ${{ github.sha }}^ ${{ github.sha }} \
+                      | grep '^charts/' | cut -d/ -f2 | sort -u | tr '\n' ',' | sed 's/,$//')
 
+            echo "changed_charts=$CHANGED" >> "$GITHUB_OUTPUT"
+            
   package:
     runs-on: ubuntu-latest
     needs: detect
