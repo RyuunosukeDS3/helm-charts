@@ -52,7 +52,7 @@ jobs:
             export CHART_PATH="charts/$chart"
 
             # Bump version with semantic-release (no tags, no release notes)
-            semantic-release \
+            npx semantic-release \
               --no-ci \
               --branches main \
               --extends ./.releaserc.js \
